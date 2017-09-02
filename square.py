@@ -14,17 +14,16 @@ def loop_square():
   pygame.mixer.music.load('/home/pi/Projects/b_square/TARDIS.mp3')
   
   pygame.mixer.music.play()
-
+  
   print 'Playing song'
-  for event in pygame.event.get():
-    print 'Inside event loop'
-    while event.type != SONG_END: 
-      for x in range(0,8):
-        if x>=1: bstick.set_color(channel=0, index=(x-1))
-        if x<8:  bstick.set_color(channel=0, index=x, name="white")
-        time.sleep(0.05)
-    turn_off_square()
-  time.sleep(16)
+  while pygame.mixer.music.get_busy() == True:
+    for x in range(0,8):
+      if x>=1: bstick.set_color(channel=0, index=(x-1))
+      if x<8:  bstick.set_color(channel=0, index=x, name="white")
+      time.sleep(0.05)
+    continue
+  turn_off_square()
+  
 
 def turn_off_square():
   bstick = blinkstick.find_first()
